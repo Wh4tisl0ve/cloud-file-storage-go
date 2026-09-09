@@ -9,7 +9,7 @@ import (
 )
 
 type Postgres struct {
-	pool *pgxpool.Pool
+	Pool *pgxpool.Pool
 }
 
 func New(ctx context.Context, dsn string) *Postgres {
@@ -25,10 +25,10 @@ func New(ctx context.Context, dsn string) *Postgres {
 	}
 
 	return &Postgres{
-		pool: pool,
+		Pool: pool,
 	}
 }
 
 func (p *Postgres) Close() {
-	p.pool.Close()
+	p.Pool.Close()
 }

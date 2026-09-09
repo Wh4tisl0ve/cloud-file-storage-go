@@ -19,7 +19,13 @@ func Run(cfg *config.Config) {
 		cfg.DBConfig.Name,
 	)
 	postgres := postgres.New(context.Background(), dsn)
+	fmt.Println(postgres)
 
-	fmt.Print(postgres)
+	/* 	r := chi.NewRouter()
+	r.Use(middleware.Logger)
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+	    w.Write([]byte("Hello World!"))
+	})
+	http.ListenAndServe(":3000", r) */
 	// todo init DB, Cache, S3, logger
 }

@@ -6,11 +6,10 @@ services:
       POSTGRES_USER: postgres_user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: cloud_file_storage
-      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - "6430:5432"
     volumes:
-      - ./pgdata:/var/lib/postgresql/data/pgdata
+      - postgres_data:/var/lib/postgresql
     command: >
       postgres -c max_connections=1000
                -c shared_buffers=256MB
@@ -29,5 +28,4 @@ services:
     stdin_open: true
 
 volumes:
-  pgdata:
-    driver: local
+  postgres_data:
