@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/Wh4tisl0ve/cloud-file-storage-go/cmd/internal/config"
-	"github.com/Wh4tisl0ve/cloud-file-storage-go/cmd/pkg/postgres"
+	"github.com/Wh4tisl0ve/cloud-file-storage-go/internal/config"
+	"github.com/Wh4tisl0ve/cloud-file-storage-go/pkg/postgres"
 )
 
 func Run() {

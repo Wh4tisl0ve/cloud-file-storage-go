@@ -5,7 +5,7 @@ import "fmt"
 
 const (
 	minNameLength = 5
-	maxNameLength = 30
+	maxNameLength = 15
 )
 
 type Name struct {

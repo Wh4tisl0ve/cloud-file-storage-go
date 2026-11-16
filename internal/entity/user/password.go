@@ -12,7 +12,7 @@ type Password struct {
 }
 
 func NewPassword(value string) (Password, error) {
-	if len(value) < minNameLength || len(value) > maxNameLength {
+	if len(value) < minPasswordLength || len(value) > maxPasswordLength {
 		return Password{}, fmt.Errorf("password length must be between %d and %d", minNameLength, maxNameLength)
 	}
 
