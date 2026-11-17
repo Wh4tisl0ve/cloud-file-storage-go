@@ -1,6 +1,5 @@
 package user
 
-
 import "fmt"
 
 const (
@@ -8,18 +7,16 @@ const (
 	maxNameLength = 15
 )
 
-type Name struct {
+type Username struct {
 	value string
 }
 
-func NewName(value string) (Name, error) {
+func NewName(value string) (Username, error) {
 	if len(value) < minNameLength || len(value) > maxNameLength {
-		return Name{}, fmt.Errorf("username length must be between %d and %d", minNameLength, maxNameLength)
+		return Username{}, fmt.Errorf("username length must be between %d and %d", minNameLength, maxNameLength)
 	}
 
-	return Name{
+	return Username{
 		value: value,
 	}, nil
 }
-
-

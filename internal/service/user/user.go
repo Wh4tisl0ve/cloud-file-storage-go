@@ -1,6 +1,9 @@
 package user
 
 import (
+	"fmt"
+	"uuid"
+
 	"github.com/Wh4tisl0ve/cloud-file-storage-go/internal/entity/user"
 )
 
@@ -26,13 +29,13 @@ func New(r Repository, h Hasher) Service {
 	}
 }
 
-func (s Service) create(username, password string) error {
-	_, err := user.NewPassword(password)
+func (s Service) createUser(username, password string) error {
+	p, err := user.NewPassword(password)
 	if err != nil {
 		return err
 	}
 
-	passwordHash, err := s.h.hash(password)
+	passwordHash, err := s.h.hash(p.Value())
 	if err != nil {
 		return err
 	}
@@ -50,17 +53,20 @@ func (s Service) create(username, password string) error {
 	return nil
 }
 
-func (s Service) authorize(username, password string) (string, error) {
-	_, err := s.h.hash(password)
-	if err != nil {
-		return "", nil
-	}
-
+func (s Service) authenticateUser(username, password string) (uuid.UUID, error) {
 	u := s.r.getByUsername(username)
 	if u == nil {
-		return "", nil
+		return uuid.New(), fmt.Errorf("user with username %s not found", username)
 	}
 
-	// todo доделать авторизацию
-	return "", nil
+	passwordHash, err := s.h.hash(password)
+	if err != nil {
+		return uuid.New(), err
+	}
+
+	if err := s.h.compare(passwordHash, u.PasswordHash()); err != nil {
+		return uuid.New(), fmt.Errorf("incorrect password")
+	}
+
+	return u.Id(), nil
 }

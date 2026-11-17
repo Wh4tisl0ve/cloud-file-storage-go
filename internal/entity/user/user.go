@@ -7,7 +7,7 @@ import (
 
 type User struct {
 	id           uuid.UUID
-	name         Name
+	username     Username
 	passwordHash string
 	createdAt    time.Time
 }
@@ -20,7 +20,15 @@ func New(username, password string) (*User, error) {
 
 	return &User{
 		id:           uuid.New(),
-		name:         name,
+		username:     name,
 		passwordHash: password,
 	}, nil
+}
+
+func (u *User) PasswordHash() string {
+	return u.passwordHash
+}
+
+func (u *User) Id() uuid.UUID {
+	return u.id
 }
